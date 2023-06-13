@@ -56,7 +56,7 @@ def post_config_params():
 @app.route("/config", methods=['GET'])
 @cross_origin(origins='*')
 def get_config_params():
-    return config;
+    return {"k": config["k"], "max_iter": config["max_iter"], "tol": config["tol"]};
 
 @app.route('/cluster', methods=['GET'] )
 @cross_origin(origin='*')
