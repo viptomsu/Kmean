@@ -80,6 +80,17 @@ def cluster():
 def get_groups():
     return list(range(config["k"]))
 
+@app.route('/circle-chart', methods=['GET'] )
+@cross_origin(origin='*')
+def get_groups_chart():
+    if 'label' in customers.columns:
+        label_counts = customers['label'].value_counts().reset_index()
+        label_counts.columns = ['label', 'value']
+        label_counts['percentage'] = label_counts['value'] / len(customers) * 100
+        return label_counts.to_json(orient='records')
+    else:
+        return []
+
 # Start Backend
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='6868')
